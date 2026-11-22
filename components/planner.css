@@ -1,0 +1,1192 @@
+.planner-shell {
+  display: grid;
+  gap: 14px;
+}
+/* The focus room uses the available viewport; settings scroll inside a dialog. */
+body:has(.is-focus-room) {
+  overflow: hidden;
+}
+.app-body:has(.is-focus-room) {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+body:has(.is-focus-room) .workspace-main {
+  flex: 1;
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  margin: 0;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+.workspace-main:has(.is-focus-room) > .workspace-footer {
+  display: none;
+}
+.planner-shell.is-focus-room {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+.is-focus-room > .planner-notice {
+  display: none;
+}
+.is-focus-room .planner-page.planner-focus {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  margin: 0;
+  padding: 20px !important;
+  border-radius: 16px !important;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  gap: 14px;
+  container-type: size;
+}
+.is-focus-room .planner-focus[hidden] {
+  display: none;
+}
+.focus-session-heading {
+  grid-area: 1/1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  text-align: left;
+  align-self: center;
+}
+.focus-session-heading > div {
+  min-width: 0;
+}
+.planner-shell .planner-focus .focus-session-heading h2 {
+  margin: 6px 0 0;
+  font-size: clamp(17px, 2.5vw, 26px);
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.focus-room-actions {
+  grid-area: 1/2;
+  align-self: start;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.focus-atmosphere-toggle {
+  min-height: 44px;
+}
+.is-focus-room .planner-clock {
+  grid-area: 2/1/3/3;
+  align-self: center;
+  gap: 6px;
+  padding: 0;
+}
+.is-focus-room .planner-focus .planner-clock strong {
+  font-size: clamp(64px, 17vmin, 118px);
+  line-height: 1.05;
+  letter-spacing: -4px;
+}
+.is-focus-room .focus-controls {
+  grid-area: 3/1/4/3;
+  gap: 10px;
+}
+.is-focus-room .focus-controls .btn {
+  min-height: 44px;
+}
+.is-focus-room .focus-options {
+  grid-area: 4/1/5/3;
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+.is-focus-room .focus-options label {
+  font-size: 11px;
+  gap: 5px;
+}
+.is-focus-room .focus-options input {
+  width: 90px;
+  padding: 8px;
+  font-size: 16px;
+}
+.is-focus-room .focus-video {
+  inset: 0;
+  z-index: -1;
+}
+.is-focus-room .focus-video iframe {
+  position: absolute;
+  width: max(calc(100cqw + 48px), calc(177.778cqh + 85.334px));
+  height: max(calc(100cqh + 48px), calc(56.25cqw + 27px));
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.is-focus-room .focus-video::after {
+  background: color-mix(in srgb, var(--surface) 62%, transparent);
+}
+.focus-settings-dialog {
+  position: fixed;
+  inset: 68px 16px auto auto;
+  margin: 0;
+  width: min(330px, calc(100vw - 32px));
+  max-height: calc(100dvh - 84px);
+  padding: 0;
+  overflow: hidden;
+  color: var(--text);
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  border: 1px solid color-mix(in srgb, var(--line) 72%, var(--text) 12%);
+  border-radius: 16px;
+  box-shadow: 0 16px 60px #0005;
+  backdrop-filter: blur(20px) saturate(1.2);
+}
+.focus-settings-dialog:popover-open {
+  display: flex;
+  flex-direction: column;
+  animation: focus-drawer-in 170ms ease-out both;
+}
+@keyframes focus-drawer-in {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .focus-settings-dialog:popover-open {
+    animation: none;
+  }
+}
+.focus-drawer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 12px 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+.focus-settings-dialog .focus-drawer-head > div > .focus-settings-title {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+}
+.focus-drawer-head .icon-btn {
+  min-height: 32px;
+  min-width: 32px;
+}
+.focus-settings-dialog .focus-atmosphere {
+  margin: 0;
+  padding: 14px;
+  border: 0;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  gap: 14px;
+}
+.focus-audio-section {
+  display: grid;
+  gap: 10px;
+}
+.focus-audio-section + .focus-audio-section {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+.focus-settings-dialog .focus-atmosphere h3 {
+  font-size: 15px;
+  margin: 0;
+}
+.focus-sound-choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+.focus-settings-dialog :is(.focus-sound-choices, .button-row, form) .btn {
+  min-height: 32px;
+  padding: 6px 8px;
+  font-size: 12px;
+}
+.focus-sound-choices .btn[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+}
+.focus-settings-dialog .focus-volume {
+  display: grid;
+  gap: 2px;
+  padding: 9px 11px 5px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--inset) 65%, transparent);
+}
+.focus-volume > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+}
+.focus-volume > div > label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+.focus-volume > div > span {
+  min-width: 36px;
+  padding: 2px 5px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+  text-align: center;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.focus-settings-dialog .focus-volume input[type="range"] {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  width: 100%;
+  height: 24px;
+  min-height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: none;
+  cursor: pointer;
+}
+.focus-settings-dialog
+  .focus-volume
+  input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--accent) 0 var(--focus-volume),
+    color-mix(in srgb, var(--text) 18%, transparent) var(--focus-volume) 100%
+  );
+}
+.focus-settings-dialog .focus-volume input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  margin-top: -4px;
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow:
+    0 0 0 1px var(--accent),
+    0 1px 5px #0005;
+}
+.focus-settings-dialog .focus-volume input[type="range"]::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text) 18%, transparent);
+}
+.focus-settings-dialog .focus-volume input[type="range"]::-moz-range-progress {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+.focus-settings-dialog .focus-volume input[type="range"]::-moz-range-thumb {
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.focus-settings-dialog .focus-volume input[type="range"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.focus-settings-dialog .focus-volume input[type="range"]:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.focus-settings-dialog .focus-atmosphere .focus-video-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 36px;
+  align-items: center;
+  gap: 6px;
+}
+.focus-settings-dialog .focus-video-form > button {
+  padding: 0;
+  min-height: 36px;
+}
+.focus-settings-dialog .focus-atmosphere .focus-video-form input {
+  padding: 9px 10px;
+  font-size: 12px;
+}
+.focus-settings-dialog .focus-recent summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 12px;
+}
+.focus-settings-dialog .focus-recent[open] summary {
+  margin-bottom: 8px;
+}
+.focus-settings-dialog .focus-recent > p {
+  font-size: 12px;
+}
+.focus-settings-dialog .focus-atmosphere form {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+.focus-settings-dialog .focus-atmosphere input[type="url"] {
+  width: 100%;
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+}
+.focus-settings-dialog .focus-recent {
+  margin: 0;
+  padding-top: 16px;
+}
+@media (max-height: 520px) {
+  .focus-settings-dialog {
+    top: 12px;
+    max-height: calc(100dvh - 24px);
+  }
+}
+@media (max-width: 600px) {
+  body:has(.is-focus-room) .workspace-main {
+    padding: 8px;
+  }
+  .is-focus-room .planner-page.planner-focus {
+    padding: 14px !important;
+    gap: 10px;
+  }
+  .focus-room-actions {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  .focus-atmosphere-toggle {
+    font-size: 10px;
+    padding: 10px;
+  }
+  .is-focus-room .focus-options {
+    gap: 12px;
+  }
+  .is-focus-room .focus-options input {
+    width: 78px;
+  }
+}
+@media (max-height: 480px) {
+  .is-focus-room .planner-page.planner-focus {
+    padding: 10px !important;
+    gap: 6px;
+  }
+  .focus-session-heading .planner-eyebrow,
+  .is-focus-room .planner-clock small {
+    display: none;
+  }
+  .is-focus-room .planner-focus .planner-clock strong {
+    font-size: 56px;
+    letter-spacing: -2px;
+  }
+  .is-focus-room .planner-clock > span {
+    font-size: 11px;
+  }
+  .is-focus-room .focus-options {
+    padding-top: 5px;
+    gap: 16px;
+  }
+  .is-focus-room .focus-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .is-focus-room .focus-options input {
+    width: 55px;
+  }
+}
+.planner-tabs[hidden] {
+  display: none;
+}
+.habit-lane {
+  min-height: 65vh;
+  border-radius: 0 !important;
+  border-inline: 0 !important;
+  box-shadow: none !important;
+}
+.habit-tile {
+  border-radius: 0 !important;
+  border-width: 0 0 1px !important;
+  padding: 24px 0 !important;
+}
+.habit-lane-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 24px 0;
+  color: var(--mint);
+}
+.habit-lane-summary strong {
+  font-size: 40px;
+  font-weight: 500;
+}
+.habit-lane-summary span {
+  font-size: 12px;
+}
+.quit .habit-lane-summary {
+  color: #d9916b;
+}
+.planner-page.planner-focus {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 75vh;
+  border-radius: 22px !important;
+  padding: 50px !important;
+  background:
+    radial-gradient(
+      ellipse at top,
+      color-mix(in srgb, var(--accent) 12%, transparent),
+      transparent 65%
+    ),
+    var(--surface) !important;
+}
+.planner-shell .planner-focus h2 {
+  font-size: clamp(25px, 4vw, 45px);
+}
+.planner-focus .planner-clock strong {
+  font-size: clamp(76px, 12vw, 160px);
+  letter-spacing: -6px;
+}
+.focus-atmosphere {
+  margin: 40px auto 0;
+  max-width: 760px;
+  text-align: left;
+  display: grid;
+  gap: 18px;
+  border-top: 1px solid var(--line);
+  padding-top: 28px;
+}
+.focus-atmosphere h3 {
+  font-size: 23px;
+  margin: 10px 0;
+}
+.focus-atmosphere form {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+}
+.focus-atmosphere form label {
+  flex: 1;
+}
+.focus-atmosphere small {
+  line-height: 1.7;
+  opacity: 0.65;
+}
+.focus-atmosphere input[type="range"] {
+  padding: 0;
+  accent-color: var(--mint);
+}
+.focus-video {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+.focus-video iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+}
+.focus-video::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+}
+.study-groups {
+  display: grid;
+  gap: var(--workspace-section-gap, 18px);
+}
+.study-groups form {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+.study-groups label {
+  display: grid;
+  gap: 8px;
+}
+.study-groups input,
+.study-groups textarea,
+.study-groups select {
+  font: inherit;
+  color: inherit;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 12px;
+  border-radius: 8px;
+  width: 100%;
+}
+.career-card .text-link {
+  margin-top: 18px;
+}
+@media (max-width: 650px) {
+  .planner-focus {
+    padding: 24px 16px !important;
+  }
+  .focus-atmosphere form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .focus-options {
+    flex-wrap: wrap;
+  }
+  .habit-lane {
+    min-height: 45vh;
+  }
+}
+.planner-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 7px;
+  background: var(--surface, #171c19);
+  border: 1px solid #899b8626;
+  border-radius: 16px;
+}
+.planner-tabs button {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 15px;
+  border: 0;
+  border-radius: 11px;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+.planner-tabs button[aria-current="page"] {
+  background: #97d6ad20;
+  color: var(--mint, #b6e3bf);
+}
+.planner-meta,
+.planner-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.planner-meta {
+  font-size: 12px;
+}
+.planner-date {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  color: var(--muted);
+}
+.planner-date > span {
+  font-size: 0.9em;
+  color: var(--subtle);
+}
+.planner-page {
+  padding: 30px !important;
+}
+.planner-eyebrow {
+  font-size: 10px;
+  letter-spacing: 1.8px;
+  color: var(--mint, #acd4b2);
+}
+.planner-shell h2 {
+  font-size: 25px;
+  margin: 12px 0;
+}
+.planner-shell p {
+  line-height: 1.7;
+}
+.planner-shell label {
+  display: grid;
+  gap: 9px;
+  font-size: 12px;
+}
+.planner-shell input,
+.planner-shell textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #81918440;
+  background: transparent;
+  border-radius: 9px;
+  color: inherit;
+  font: inherit;
+}
+.planner-shell input[type="number"] {
+  max-width: 110px;
+}
+.planner-task-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: end;
+  margin: 28px 0;
+}
+.task-quiz-setting {
+  flex: 1 0 100%;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--inset);
+}
+.planner-shell .task-quiz-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+}
+.task-quiz-toggle:hover { background: var(--hover); border-radius: inherit; }
+.task-quiz-toggle span { display: grid; gap: 4px; }
+.task-quiz-setting small { color: var(--muted); line-height: 1.4; }
+.planner-shell .task-quiz-toggle input {
+  flex: none;
+  width: 17px;
+  height: 17px;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.planner-shell .task-quiz-toggle input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.planner-shell .task-quiz-topic { padding: 2px 14px 14px; }
+.task-quiz-label { display: block; font-weight: normal; }
+.task-focus-actions { flex: 1 0 100%; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; padding-inline: 12px; }
+.study-quiz-dialog { width: min(540px, calc(100vw - 32px)); max-height: 85dvh; overflow: auto; color: var(--text); background: var(--surface); padding: 22px; border: 1px solid var(--line); border-radius: 16px; }
+.study-quiz-dialog::backdrop { background: #0009; }
+.study-quiz-dialog header { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.study-quiz-dialog fieldset { display: grid; gap: 8px; border: 0; padding: 0; min-inline-size: 0; }
+.study-quiz-dialog fieldset button { justify-content: flex-start; white-space: normal; text-align: start; }
+.study-quiz-results li { margin-block: 12px; }
+.planner-task-form label {
+  flex: 1;
+}
+.planner-task {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 0;
+  border-top: 1px solid #899b8626;
+}
+.planner-task b {
+  flex: 1;
+}
+.planner-task label {
+  font-size: 10px;
+  gap: 5px;
+}
+.planner-task.is-done b {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+.planner-task.is-done .icon-btn:first-child {
+  color: #a5deb5;
+}
+.planner-empty {
+  padding: 35px 0;
+  opacity: 0.6;
+}
+.planner-habit-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.habit-lane {
+  padding: 28px !important;
+  border-top: 3px solid #89d7ac !important;
+}
+.habit-lane.quit {
+  border-top-color: #e8ad8a !important;
+}
+.habit-lane.quit .planner-eyebrow,
+.habit-lane.quit .habit-streak {
+  color: #e8ad8a;
+}
+.habit-tile {
+  margin-top: 22px;
+  border: 1px solid #899b8626;
+  padding: 20px;
+  border-radius: 14px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 15px;
+}
+.habit-tile h3 {
+  margin: 0 0 10px;
+}
+.habit-streak {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  color: #89d7ac;
+  font-size: 12px;
+}
+.habit-tick {
+  border: 1px solid #899b8660;
+  background: transparent;
+  color: inherit;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+}
+.habit-tick[aria-pressed="true"] {
+  background: #89d7ac24;
+  border-color: #89d7ac;
+}
+.quit .habit-tick[aria-pressed="true"] {
+  background: #e8ad8a24;
+  border-color: #e8ad8a;
+}
+.habit-tile p {
+  grid-column: 1/-1;
+  font-size: 12px;
+  margin: 0;
+}
+.habit-warning {
+  color: #dfb487;
+}
+.habit-create {
+  display: grid;
+  gap: 14px;
+  margin-top: 25px;
+}
+.planner-journal-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 22px;
+}
+.planner-moods {
+  display: flex;
+  gap: 5px;
+  margin: 22px 0;
+}
+.planner-moods button {
+  flex: 1;
+  background: transparent;
+  border: 1px solid #899b8633;
+  border-radius: 12px;
+  padding: 12px 4px;
+  color: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+.planner-moods span {
+  display: block;
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+.planner-moods button[aria-pressed="true"] {
+  border-color: #a7d7b2;
+  background: #89d7ac18;
+}
+.journal-dates {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+.mood-context {
+  display: inline-block;
+  border: 1px solid #899b8640;
+  border-radius: 20px;
+  padding: 7px 12px;
+  font-size: 12px;
+  margin: 12px 0;
+}
+.mood-chat {
+  height: 280px;
+  overflow: auto;
+  margin: 10px 0 20px;
+}
+.mood-message {
+  padding: 13px 16px;
+  margin: 12px 0;
+  background: #899b8611;
+  border-radius: 12px;
+}
+.mood-message.user {
+  margin-left: 24px;
+  background: #89d7ac18;
+}
+.mood-message p {
+  white-space: pre-wrap;
+  margin: 7px 0;
+}
+.mood-message small,
+.mood-companion > small {
+  font-size: 11px;
+  opacity: 0.65;
+}
+.mood-companion form {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.planner-focus {
+  text-align: center;
+}
+.planner-focus[hidden] {
+  display: none;
+}
+.focus-options {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  text-align: left;
+  margin: 28px 0;
+}
+.planner-clock {
+  display: grid;
+  gap: 12px;
+  padding: 32px 0;
+  color: var(--mint, #b6e3bf);
+}
+.planner-clock.break {
+  color: #e8ad8a;
+}
+.planner-clock strong {
+  font-size: clamp(60px, 8vw, 105px);
+  font-weight: 400;
+  letter-spacing: -5px;
+  font-variant-numeric: tabular-nums;
+}
+.planner-clock small {
+  color: inherit;
+  opacity: 0.7;
+}
+.focus-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+.focus-recent {
+  text-align: left;
+  margin: 35px auto 0;
+  max-width: 650px;
+  border-top: 1px solid #899b8626;
+  padding-top: 24px;
+}
+.focus-recent p {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 12px;
+}
+.focus-recent span {
+  opacity: 0.6;
+}
+.planner-notice {
+  font-size: 12px;
+  color: var(--mint, #b6e3bf);
+}
+@media (max-width: 850px) {
+  .planner-journal-grid,
+  .planner-habit-columns {
+    grid-template-columns: 1fr;
+  }
+  .planner-task {
+    flex-wrap: wrap;
+  }
+  .planner-task b {
+    min-width: 55%;
+  }
+  .planner-page,
+  .habit-lane {
+    padding: 20px !important;
+  }
+  .planner-tabs {
+    flex-wrap: wrap;
+  }
+  .planner-tabs button {
+    flex: 1 0 40%;
+    font-size: 12px;
+    padding: 12px;
+  }
+  .planner-task-form {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .planner-meta {
+    font-size: 10px;
+    gap: 8px;
+  }
+  .focus-options {
+    gap: 12px;
+  }
+  .focus-options label {
+    font-size: 10px;
+  }
+  .planner-title {
+    align-items: start;
+  }
+  .planner-title > span {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 650px) {
+  .planner-page.planner-focus {
+    padding: 24px 16px !important;
+  }
+}
+
+:root[data-theme="light"] .habit-streak {
+  color: var(--mint);
+}
+:root[data-theme="light"] .quit .habit-streak,
+:root[data-theme="light"] .quit .habit-lane-summary {
+  color: #89532a;
+}
+
+.planner-shell.planner-away {
+  display: contents;
+}
+.planner-away > :not(.focus-mini),
+.focus-atmosphere-toggle[hidden] {
+  display: none;
+}
+.planner-page.planner-focus.focus-mini {
+  position: fixed;
+  right: 20px;
+  bottom: 16px;
+  z-index: 35;
+  width: min(365px, calc(100vw - 32px));
+  min-height: 0;
+  padding: 14px 16px !important;
+  border-radius: 16px !important;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 26px #0005;
+}
+.focus-mini .focus-options,
+.focus-mini .focus-controls,
+.focus-mini .planner-clock small,
+.focus-mini .planner-clock > span {
+  display: none;
+}
+.focus-mini .focus-session-heading {
+  grid-area: auto;
+}
+.planner-shell .focus-mini .focus-session-heading h2 {
+  font-size: 15px;
+}
+.focus-mini .planner-clock {
+  padding: 0;
+}
+.planner-shell .focus-mini .planner-clock strong {
+  font-size: 32px;
+  letter-spacing: -1px;
+}
+.focus-mini-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 8px;
+}
+.focus-mini-actions > .btn {
+  min-height: 34px;
+  padding: 5px 10px;
+}
+.focus-mini .focus-video iframe {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  transform: translate(-50%, -50%);
+}
+.focus-mini .focus-video::after {
+  background: color-mix(in srgb, var(--surface) 64%, transparent);
+}
+body:has(.focus-mini) .workspace-main {
+  padding-bottom: 150px;
+}
+
+/* Small scene cards keep sound and background selection inside the drawer. */
+.focus-settings-dialog .focus-sound-choices {
+  --sound-tint: var(--accent);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+.focus-settings-dialog .focus-sound-choices .sound-choice {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+  min-width: 0;
+  min-height: 58px;
+  padding: 9px 2px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--sound-tint) 23%, var(--line));
+  border-radius: 10px;
+  background:
+    radial-gradient(
+      ellipse at 18% 0%,
+      color-mix(in srgb, var(--sound-tint) 23%, transparent),
+      transparent 85%
+    ),
+    color-mix(in srgb, var(--inset) 82%, var(--surface));
+  color: var(--text);
+  font-size: 9px;
+  line-height: 1.15;
+}
+.focus-sound-choices .sound-choice svg {
+  color: var(--sound-tint);
+}
+.focus-settings-dialog .focus-sound-choices .sound-choice:hover {
+  border-color: var(--sound-tint);
+  background: color-mix(in srgb, var(--sound-tint) 17%, var(--surface));
+}
+.focus-settings-dialog .focus-sound-choices .sound-choice[aria-pressed="true"] {
+  border-color: var(--accent);
+  box-shadow: inset 0 -2px 0 var(--accent);
+  background: color-mix(in srgb, var(--sound-tint) 22%, var(--surface));
+}
+.focus-sound-choices .sound-choice--off {
+  --sound-tint: #b5b6c9;
+}
+.focus-sound-choices .sound-choice--rain {
+  --sound-tint: #7cabc9;
+}
+.focus-sound-choices .sound-choice--forest {
+  --sound-tint: #7fb690;
+}
+.focus-sound-choices .sound-choice--ocean {
+  --sound-tint: #65b9bc;
+}
+.focus-sound-choices .sound-choice--fire {
+  --sound-tint: #dca078;
+}
+.focus-sound-choices .sound-choice--brown {
+  --sound-tint: #bf9b84;
+}
+.focus-sound-choices .sound-choice--pink {
+  --sound-tint: #ce9cb9;
+}
+.focus-sound-choices .sound-choice--tones {
+  --sound-tint: #ac9cdb;
+}
+.focus-background-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+.focus-settings-dialog .focus-background-choice {
+  position: relative;
+  display: block;
+  min-width: 0;
+  aspect-ratio: 1.9;
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--inset);
+  color: #fff;
+}
+.focus-background-choice img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.focus-background-choice::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 15%, #080b10db);
+}
+.focus-background-choice > span {
+  position: absolute;
+  z-index: 1;
+  inset: auto 20px 7px 7px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+  font-weight: 500;
+}
+.focus-background-choice > svg {
+  position: absolute;
+  z-index: 1;
+  right: 6px;
+  bottom: 8px;
+}
+.focus-settings-dialog
+  .focus-background-choice:is(:hover, [aria-pressed="true"]) {
+  border-color: var(--accent);
+}
+.focus-settings-dialog .focus-background-choice[aria-pressed="true"] {
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.focus-background-history {
+  display: grid;
+  gap: 7px;
+}
+.focus-background-history h4 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+}
+.focus-background-history h4 span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 400;
+}
+.focus-background-history .is-recent {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px;
+}
+.focus-background-history .focus-background-choice {
+  aspect-ratio: 1.15;
+}
+.focus-background-history .focus-background-choice > span {
+  inset: auto 4px 5px;
+  font-size: 8px;
+}
+.focus-background-history .focus-background-choice > svg {
+  display: none;
+}
+.focus-sound-credits {
+  padding-top: 9px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10px;
+}
+.focus-sound-credits summary {
+  cursor: pointer;
+}
+.focus-sound-credits p {
+  margin-top: 6px;
+}
+.focus-sound-credits a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

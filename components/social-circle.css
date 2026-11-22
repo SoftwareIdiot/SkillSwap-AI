@@ -1,0 +1,483 @@
+.workspace-menu:popover-open {
+  width: min(610px, calc(100vw - 28px));
+  padding: 16px;
+  max-height: calc(100dvh - 28px);
+}
+dialog.social-overlay {
+  margin: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  border: 0;
+  color: var(--text);
+  background: transparent;
+}
+dialog.social-overlay:not([open]) {
+  display: none;
+}
+dialog.social-overlay::backdrop {
+  background: #0008;
+  backdrop-filter: blur(8px);
+}
+.workspace-atlas {
+  display: grid;
+  grid-template-columns: 105px 1fr;
+  gap: 22px;
+  margin: 18px 0 6px;
+}
+.atlas-spaces {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-right: 1px solid var(--line);
+  padding-right: 14px;
+}
+.atlas-spaces button {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  min-height: 76px;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  color: var(--muted);
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.atlas-spaces button[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
+}
+.atlas-spaces i {
+  position: absolute;
+  right: 9px;
+  top: 9px;
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.atlas-destinations h2 {
+  font-size: 19px;
+  line-height: 1.4;
+  margin: 10px 0 18px;
+  max-width: 260px;
+}
+.atlas-destinations nav {
+  display: grid;
+  gap: 7px;
+}
+.atlas-destinations nav button {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  text-align: left;
+  padding: 13px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+.atlas-destinations nav button:hover,
+.atlas-destinations nav button[aria-current] {
+  background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+  border-color: var(--line);
+}
+.atlas-destinations nav button > span {
+  flex: 1;
+  display: grid;
+  gap: 4px;
+}
+.atlas-destinations b {
+  font-size: 13px;
+  font-weight: 500;
+}
+.atlas-destinations small,
+.atlas-footnote {
+  color: var(--muted);
+  font-size: 11px;
+}
+.atlas-footnote {
+  margin: 23px 12px 8px;
+}
+.social-space {
+  display: grid;
+  gap: 20px;
+}
+.social-toolbar,
+.social-directory-heading,
+.social-person-actions,
+.social-chat-heading,
+.social-rooms header,
+.social-ranking {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.social-tabs {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+}
+.social-tabs button {
+  border: 0;
+  border-radius: 24px;
+  background: transparent;
+  color: var(--muted);
+  padding: 11px 17px;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.social-tabs button[aria-pressed="true"] {
+  color: var(--text);
+  background: var(--surface);
+}
+.social-directory-heading {
+  padding: 16px 0;
+}
+.social-directory-heading h2 {
+  font-size: 30px;
+  margin: 8px 0;
+}
+.social-directory-heading p {
+  color: var(--muted);
+  font-size: 13px;
+  max-width: 540px;
+}
+.social-search {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  padding: 0 15px;
+}
+.social-search input {
+  border: 0 !important;
+  background: transparent !important;
+  width: 200px;
+}
+.social-people {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+.social-person {
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 4%, var(--surface)),
+    var(--surface)
+  );
+  padding: 22px;
+}
+.social-person-identity {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: var(--text);
+  border: 0;
+  background: none;
+  text-align: left;
+  width: 100%;
+  font: inherit;
+  cursor: pointer;
+}
+.social-person-identity > span:nth-child(2) {
+  flex: 1;
+  display: grid;
+  gap: 5px;
+}
+.social-person-identity small,
+.social-person-actions small {
+  color: var(--muted);
+  font-size: 11px;
+}
+.social-person p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  min-height: 45px;
+  overflow-wrap: anywhere;
+}
+.social-monogram {
+  display: grid;
+  place-items: center;
+  width: 47px;
+  height: 47px;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  font-size: 22px;
+  color: var(--accent);
+}
+.social-inbox {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+  min-height: 510px;
+  background: var(--surface);
+}
+.social-rooms {
+  padding: 20px;
+  border-right: 1px solid var(--line);
+}
+.social-rooms h2 {
+  font-size: 17px;
+}
+.social-rooms > p {
+  font-size: 13px;
+  color: var(--muted);
+}
+.social-room {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 15px 10px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+.social-room span {
+  display: grid;
+  gap: 5px;
+}
+.social-room small {
+  font-size: 10px;
+  color: var(--muted);
+}
+.social-room[data-active="true"] {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.social-conversation {
+  padding: 24px;
+  min-width: 0;
+}
+.social-blank {
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+}
+.social-blank p {
+  max-width: 420px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.social-chat-heading h2 {
+  margin: 8px 0;
+  font-size: 22px;
+}
+.social-chat-heading small {
+  display: flex;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 1.8px;
+}
+.social-member-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+.social-member-line span {
+  font-size: 11px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 5px 9px;
+}
+.social-messages {
+  height: 320px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 15px 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.social-messages article {
+  max-width: 85%;
+  align-self: flex-start;
+  background: color-mix(in srgb, var(--text) 5%, transparent);
+  border-radius: 14px;
+  padding: 12px 16px;
+}
+.social-messages article[data-own="true"] {
+  align-self: flex-end;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.social-messages small {
+  font-size: 10px;
+  color: var(--muted);
+}
+.social-messages p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 7px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.social-compose {
+  display: flex;
+  gap: 10px;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+.social-compose input {
+  flex: 1;
+  min-width: 0;
+}
+.social-progress {
+  margin-top: 20px;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+.social-progress summary {
+  cursor: pointer;
+  font-size: 13px;
+}
+.social-progress form {
+  display: flex;
+  gap: 8px;
+  margin: 15px 0;
+}
+.social-progress input {
+  min-width: 0;
+}
+.social-progress p {
+  font-size: 12px;
+  line-height: 1.7;
+}
+.social-ranking {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+.social-choice {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  margin: 16px 0;
+}
+.social-choice input {
+  width: 18px !important;
+  height: 18px;
+  flex: 0 0 18px;
+  accent-color: var(--accent);
+}
+.social-privacy {
+  max-width: 800px;
+}
+.social-privacy p {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.social-error {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--accent);
+}
+.social-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: #0008;
+  backdrop-filter: blur(8px);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+.social-dialog {
+  width: min(480px, 100%);
+  max-height: 85dvh;
+  overflow: auto;
+  display: grid;
+  gap: 15px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 28px;
+}
+.social-dialog h2,
+.social-dialog p {
+  margin: 0;
+}
+.social-dialog p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.social-dialog textarea {
+  min-height: 110px;
+}
+@media (max-width: 760px) {
+  .social-inbox {
+    grid-template-columns: 1fr;
+  }
+  .social-rooms {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    max-height: 230px;
+    overflow: auto;
+  }
+  .social-directory-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .social-toolbar {
+    align-items: flex-start;
+  }
+  .social-tabs button {
+    padding: 9px 12px;
+  }
+  .social-conversation {
+    padding: 16px;
+  }
+  .workspace-atlas {
+    grid-template-columns: 80px 1fr;
+    gap: 12px;
+  }
+  .atlas-spaces {
+    padding-right: 8px;
+  }
+  .atlas-destinations nav button {
+    padding: 12px 7px;
+  }
+  .atlas-destinations small {
+    font-size: 10px;
+  }
+  .atlas-destinations h2 {
+    font-size: 17px;
+  }
+}

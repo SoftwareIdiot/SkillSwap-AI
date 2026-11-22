@@ -1,0 +1,185 @@
+.rewards-panel {
+  display: grid;
+  gap: 24px;
+}
+.rewards-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.rewards-summary > div {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 14px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+}
+.rewards-summary svg {
+  color: var(--accent);
+  align-self: center;
+}
+.rewards-summary strong {
+  font-size: 32px;
+}
+.rewards-summary span {
+  grid-column: 2;
+  font-size: 12px;
+  color: var(--muted);
+}
+.reward-daily,
+.reward-save {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+.reward-daily > div,
+.reward-save > div {
+  flex: 1;
+}
+.rewards-panel h3 {
+  font-size: 17px;
+  margin: 0 0 8px;
+}
+.rewards-panel p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 0;
+}
+.reward-milestones {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 16px 0;
+}
+.reward-milestones > div {
+  display: grid;
+  gap: 6px;
+  border: 1px solid var(--line);
+  padding: 14px;
+  border-radius: 14px;
+  color: var(--muted);
+}
+.reward-milestones [data-earned="true"] {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+.reward-milestones small {
+  font-size: 11px;
+}
+.reward-shop {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+.reward-shop article {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.reward-shop h4 {
+  margin: 0;
+}
+.reward-shop p {
+  flex: 1;
+}
+.reward-preview {
+  height: 70px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+}
+.reward-aurora {
+  background: linear-gradient(120deg, #34564d, #393650);
+  color: #d7f4ec;
+}
+.reward-sunset {
+  background: linear-gradient(120deg, #815534, #61364c);
+  color: #ffe0bd;
+}
+.reward-orbit {
+  background: var(--surface);
+  color: var(--accent);
+}
+.reward-orbit svg {
+  outline: 2px solid var(--accent);
+  outline-offset: 9px;
+  border-radius: 50%;
+}
+.reward-reset {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.reward-entry {
+  font-size: 12px;
+  white-space: nowrap;
+}
+.app-shell[data-reward-theme="aurora"] {
+  background-image:
+    radial-gradient(ellipse at 15% 0%, #7d5caf19, transparent 60%),
+    radial-gradient(ellipse at 90% 20%, #47ac8717, transparent 55%);
+}
+.app-shell[data-reward-theme="sunset"] {
+  background-image:
+    radial-gradient(ellipse at 15% 0%, #eaa1401c, transparent 60%),
+    radial-gradient(ellipse at 90% 20%, #cf608518, transparent 55%);
+}
+.app-shell[data-reward-frame="true"] .small-avatar {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.skill-map li[data-complete="true"] .skill-map-node {
+  background: var(--accent);
+  color: var(--bg);
+}
+.skill-map li[data-ready="true"] .skill-map-node {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+.skill-map-progress {
+  height: 5px;
+  background: var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 12px 0 20px;
+}
+.skill-map-progress > span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+.skill-map-section-count {
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: 8px;
+}
+@media (max-width: 600px) {
+  .reward-daily,
+  .reward-save {
+    flex-wrap: wrap;
+  }
+  .reward-shop {
+    grid-template-columns: 1fr;
+  }
+  .reward-milestones {
+    grid-template-columns: 1fr;
+  }
+  .reward-summary strong {
+    font-size: 24px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skill-map-progress > span {
+    transition: none;
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "skillswap-ai",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "setup:auth": "node scripts/configure-auth.mjs",
+    "test": "node --experimental-strip-types --test tests/workspace.test.ts tests/skill-studio.test.ts tests/welcome.test.ts tests/google-cookies.test.mjs tests/database.test.mjs tests/request-origin.test.ts tests/email-auth.test.ts tests/email-otp.test.mjs tests/workspace-loading.test.mjs tests/recommendations.test.ts tests/ai-provider.test.ts tests/focus-audio.test.ts tests/social.test.mjs tests/rewards.test.ts",
+    "format": "prettier --write app components lib tests proxy.ts next.config.ts"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.49.1",
+    "lucide-react": "^0.468.0",
+    "next": "^16.4.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "three": "^0.187.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.15",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/three": "^0.187.0",
+    "prettier": "^3.9.10",
+    "typescript": "^5.7.0"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  }
+}

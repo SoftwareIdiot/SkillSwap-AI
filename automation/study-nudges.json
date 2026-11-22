@@ -1,0 +1,185 @@
+{
+  "name": "SkillSwap study nudges",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 6
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "id": "d8bf46e1-23c8-46c5-8186-eb51224540fb",
+      "name": "Every six hours",
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:4200/api/study-nudges",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth"
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "id": "dd1e254c-525c-4344-903a-09ce68630206",
+      "name": "Get opted-in study messages",
+      "position": [
+        240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "jobs"
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "id": "3f69ee28-2d65-4612-8796-08390f5cfe55",
+      "name": "Split messages",
+      "position": [
+        480,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7666cb76-7031-460e-84bf-c0b7b39624f9",
+              "leftValue": "={{ $json.channel }}",
+              "rightValue": "email",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "id": "fb94a80a-0473-40e0-bad3-bd2cf8425901",
+      "name": "Email subscription",
+      "position": [
+        720,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "Your verified sender email",
+        "toEmail": "={{ $json.destination }}",
+        "subject": "={{ 'SkillSwap practice: ' + $json.topic }}",
+        "emailFormat": "text",
+        "text": "={{ $json.fact + '\\n\\nTry this: ' + $json.question + '\\n\\nAnswer: ' + $json.answer + '\\n\\nManage study messages in SkillSwap Settings.' }}"
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "id": "133629c6-0f1d-4da6-a600-661164bfac1f",
+      "name": "Send study email",
+      "position": [
+        960,
+        -100
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://app.cloudwasender.com/api/v1/send_templet",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpCustomAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ sendTo: $json.destination, templetName: 'skillswap_study_practice', exampleArr: [$json.topic, $json.fact, $json.question, $json.answer].map(text => text.replace(/\\s+/g, ' ')) }) }}"
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "id": "eba74750-d75d-4a4b-9fa5-94c32d88b7cf",
+      "name": "Send WhatsApp template",
+      "position": [
+        960,
+        100
+      ],
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "connections": {
+    "Every six hours": {
+      "main": [
+        [
+          {
+            "node": "Get opted-in study messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get opted-in study messages": {
+      "main": [
+        [
+          {
+            "node": "Split messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split messages": {
+      "main": [
+        [
+          {
+            "node": "Email subscription",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email subscription": {
+      "main": [
+        [
+          {
+            "node": "Send study email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send WhatsApp template",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Kolkata",
+    "saveDataSuccessExecution": "none",
+    "saveDataErrorExecution": "none",
+    "saveManualExecutions": false
+  }
+}
